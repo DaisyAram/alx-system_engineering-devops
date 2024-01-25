@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Write a Bash script that displays the content of the file /etc/passwd.
+
+
+FILE=/etc/passwd
+
+while IFS=: read -r username password UID home_directory; do
+  if [ -z "$username" ]; then
+    continue
+  fi
+
+  echo "Username: $username"
+  echo "User ID: $UID"
+  echo "Home Directory: $home_directory"
+  echo
+done < "$FILE"
