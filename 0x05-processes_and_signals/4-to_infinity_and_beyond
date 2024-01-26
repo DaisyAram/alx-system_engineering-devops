@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
-#Bash script that displays its own PID.
+#Bash script that displays o infinity and beyond indefinitely.
+#in between each iteration of the loop add a sleep 2
 
-echo "$$"
+while true
+do
+	echo "To infinity and beyond"
+	sleep 2
+done
