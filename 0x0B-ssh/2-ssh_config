@@ -1,0 +1,7 @@
+Host my-server
+    HostName my-website.com
+    User my-user
+    IdentityFile ~/.ssh/school
+    PubkeyAuthentication yes
+    ChallengeResponseAuthentication no
+    PasswordAuthentication no
