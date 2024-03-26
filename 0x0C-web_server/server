@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Set your web server's IP address or hostname
+WEB_SERVER_IP="100.26.136.246"
+
+# Set your username on the web server
+WEB_SERVER_USER="ubuntu"
+
+# Check if the user provided a command to be executed on the web server
+if [ -n "$1" ]; then
+  CMD="$1"
+else
+  CMD="bash"
+fi
+
+# Execute the SSH command with the specified username and command
+ssh -t -t -o StrictHostKeyChecking=no -l "${WEB_SERVER_USER}" -i ~/.ssh/id_rsa "${WEB_SERVER_IP}" "${CMD}"
+
+# Exit status is the exit status of the command executed on the web server
+exit $?
