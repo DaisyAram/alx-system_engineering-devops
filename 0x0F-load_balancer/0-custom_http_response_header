@@ -1,0 +1,33 @@
+#!/bin/bash/env bash
+# Define the custom header name and value
+custom_header_name="X-Served-By"
+custom_header_value="$(hostname)"
+
+# Install Nginx
+sudo apt-get update
+sudo apt-get install -y nginx
+
+# Remove the default configuration file
+sudo rm /etc/nginx/sites-enabled/default
+
+# Create a new Nginx configuration file
+cat <<-EOF > /etc/nginx/sites-available/custom-header
+server {
+    listen 80 default_server;
+    server_name _;
+
+    location / {
+        add_header $custom_header_name $custom_header_value;
+        proxy_pass http://localhost:8080;
+    }
+}
+EOF
+
+# Enable the new configuration file
+sudo ln -s /etc/nginx/sites-available/custom-header /etc/nginx/sites-enabled/
+
+# Restart Nginx
+sudo systemctl restart nginx
+
+# Ignore SC2154 warning
+# shellcheck disable=SC2154
