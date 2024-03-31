@@ -1,24 +1,17 @@
 #!/usr/bin/env bash
-# Install and configure HAproxy on your lb-01 server.
+# Install the load balanecer
 sudo apt-get -y update
 sudo apt-get -y install haproxy
-
 echo 'ENABLED=1' >> /etc/default/haproxy
-
-mv  /etc/haproxy/haproxy.cfg {,.original}
-
-cat >>   /etc/haproxy/haproxy.cfg << CONFIG
-
-frontend servers
-	bind *:80
-	mode http
-	default_backend back
-
-backend sertvers
-	timeout connect 3000
-	timeout server 30000
-	balance roundrobin
-	server 1564-web-01 54.157.173.128.60:80 check
-	server 1564-web-02 34.229.161.133:80 check
+sudo cp /etc/haproxy/haproxy.cfg .
+cat >> /etc/haproxy/haproxy.cfg << CONFIG
+frontend front
+        bind *:80
+        mode http
+        default_backend back
+backend back
+    balance roundrobin
+    server 1564-web-01 54.157.173.128:80 check
+    server 1564-web-02 34.229.161.133:80 check
 CONFIG
 sudo service haproxy restart
