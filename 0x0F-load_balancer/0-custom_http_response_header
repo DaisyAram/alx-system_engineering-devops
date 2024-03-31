@@ -1,13 +1,25 @@
 #!/usr/bin/env bash
-#install ngix server
+# configuration of web-01 to have response header
 
+# updating
 sudo apt-get update
 sudo apt-get -y install nginx
-sudo ufw allow 'Nginx HTTP'
-echo "Holberton School" > /var/www/html/index.html
-echo "Ceci n'est pas une page" > /var/www/html/404.html
-sed -i '/listen 80 default_server/a rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
-sed -i '/listen 80 default_server/a \\terror_page 404 /404.html;' /etc/nginx/sites-available/default
-sudo sed -i "/listen 80 default_server/a add_header X-Served-By '$HOSTNAME';" /etc/nginx/sites-available/default
+
+# creating index page
+echo "Hello World!" | sudo tee /var/www/html/index.html
+
+# redirecting error
+new_string="server_name_;\n\trewrite ^\/redirect_me https://github.com/DaisyAram\/besthor permanent;"
+sudo sed -i "s/server_name _;/$new_string/" /etc/nginx/sites-enabled/default
+
+#creating custom error page
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
+
+# custom http response header
+sudo sed -i "server_name _;/a add_header X-Served-By $HOSTNAME';" /etc/nginx/sites-available/default
+
+# test for syntax
+sudo nginx -t
+
+#restart
 sudo service nginx reload
-sudo service nginx start
