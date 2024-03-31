@@ -9,8 +9,7 @@ sudo apt-get -y install nginx
 echo "Hello World!" | sudo tee /var/www/html/index.html
 
 # redirecting error
-new_string="server_name_;\n\trewrite ^\/redirect_me https://github.com/DaisyAram\/besthor permanent;"
-sudo sed -i "s/server_name _;/$new_string/" /etc/nginx/sites-enabled/default
+sudo sed -i '24i\       rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
 
 #creating custom error page
 echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
