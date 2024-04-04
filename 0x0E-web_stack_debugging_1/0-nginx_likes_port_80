@@ -1,0 +1,7 @@
+#!/bin/bash/env bash
+# Bash script with the minimum number of commands to ensure
+# Ubuntu container’s Nginx installation listens to port 80
+
+rm  /etc/nginx/sites-enabled/default
+ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+service nginx restart
