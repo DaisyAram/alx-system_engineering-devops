@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" 
+"""
 Mdule for a function that queries the Reddit API recursively.
 """
 
