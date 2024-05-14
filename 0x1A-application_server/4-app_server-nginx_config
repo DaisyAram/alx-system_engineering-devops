@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+#  route /api/ points to a Gunicorn instance listening on port 5002
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        server_name 54.197.64.149
+
+        add_header X-Served-By 495755-web-01;
+
+        location = /airbnb-onepage/ {
+             proxy_pass https://127.0.0.1:5000/airbnb-onepage/;
+        }
+
+        location ~ /airbnb-dynamic/number_odd_or_even/(\d+)$ {
+             proxy_pass https://127.0.0.1:5001/number_odd_or_even/$1;
+        }
+
+        location /api {
+             proxy_pass https://127.0.0.1:5002/api;
+        }
+
+        error_page 404 /404.html;
+        location /404 {
+             root /var/www/html;
+             internal;
+        }
+}
