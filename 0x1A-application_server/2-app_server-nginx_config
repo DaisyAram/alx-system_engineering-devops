@@ -4,7 +4,7 @@ server {
         listen 80;
         listen [::]:80;
 
-        server_name 54.197.64.149
+        server_name 54.197.64.149;
 
         add_header X-Served-By 495755-web-01;
 
